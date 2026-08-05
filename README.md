@@ -53,11 +53,16 @@ A second layer of checks applies business logic on top of the clean data:
 - Duplicate invoicing, identifying purchase orders billed more than once
 
 **5. Reporting**
-Results are summarized in a PivotTable-based dashboard, with exception counts broken down by vendor, supporting both an audit review use case and a delivery performance monitoring use case.
+Results are summarized in a PivotTable-based dashboard with a chart, filterable by vendor and order month via slicers, with exception counts broken down by vendor to support both an audit review use case and a delivery performance monitoring use case.
+
+**6. Automation**
+A VBA macro, triggered by a button on the dashboard, refreshes the Power Query imports, recalculates all formulas, and refreshes every PivotTable in a single click, so the workbook can be re-run against updated source data without manual steps.
 
 ## Key Results
 
 On the current dataset (700 purchase orders, 726 reconciled records after accounting for duplicate invoices):
+
+**Data quality checks**
 
 | Check | Count |
 |---|---|
@@ -67,10 +72,19 @@ On the current dataset (700 purchase orders, 726 reconciled records after accoun
 | Invalid dates | 0 |
 | Duplicate purchase orders | 0 |
 
+**Exception tests**
+
+| Check | Count |
+|---|---|
+| Quantity variance (PO vs. goods receipt) | TBD |
+| Price variance (PO vs. invoice, beyond 1% tolerance) | TBD |
+| Late delivery | TBD |
+| Duplicate invoice | TBD |
+
 ## Tools
 
 Excel, Power Query, VBA, Python
 
 ## Status
 
-Data generation, ETL, data quality checks, and exception testing are complete. Dashboard and macro-based refresh automation are in progress.
+Complete. Data generation, ETL, data quality checks, exception testing, the dashboard, and macro-based refresh automation are all built and verified.
