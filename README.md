@@ -16,6 +16,10 @@ Purchase Order & Delivery Exception Analyzer/
 │   └── invoices.csv
 ├── python/
 │   └── data_generator.py
+├── screenshots/
+│   ├── dashboard-slicers.png
+│   ├── exception-chart.png
+│   └── po-master-flags.png
 └── po-delivery-analyzer.xlsx
 ```
 
@@ -52,8 +56,16 @@ A second layer of checks applies business logic on top of the clean data:
 - Late delivery, comparing actual receipt date against promised delivery date
 - Duplicate invoicing, identifying purchase orders billed more than once
 
+![Row-level detail: data quality and exception flag columns on po_master](screenshots/po-master-flags.png)
+
 **5. Reporting**
 Results are summarized in a PivotTable-based dashboard with a chart, filterable by vendor and order month via slicers, with exception counts broken down by vendor to support both an audit review use case and a delivery performance monitoring use case.
+
+![Dashboard with vendor and order month slicers](screenshots/dashboard-slicers.png)
+
+The chart is driven by a separate, focused PivotTable limited to the three highest-signal exception types, kept apart from the full 8-metric table so the visual stays readable.
+
+![Exception chart: late delivery, price variance, duplicate invoice](screenshots/exception-chart.png)
 
 **6. Automation**
 A VBA macro, triggered by a button on the dashboard, refreshes the Power Query imports, recalculates all formulas, and refreshes every PivotTable in a single click, so the workbook can be re-run against updated source data without manual steps.
@@ -77,9 +89,9 @@ On the current dataset (700 purchase orders, 726 reconciled records after accoun
 | Check | Count |
 |---|---|
 | Quantity variance (PO vs. goods receipt) | TBD |
-| Price variance (PO vs. invoice, beyond 1% tolerance) | TBD |
-| Late delivery | TBD |
-| Duplicate invoice | TBD |
+| Price variance (PO vs. invoice, beyond 1% tolerance) | 73 |
+| Late delivery | 343 |
+| Duplicate invoice | 52 |
 
 ## Tools
 
